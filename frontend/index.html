@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickMart - Premium Shopping</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS Animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Custom Theme CSS -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body class="bg-light">
+    <!-- Amazon-Inspired Premium Navbar -->
+    <header class="glass-nav sticky-top pb-0 border-bottom border-light">
+        <div class="container-fluid pt-3 pb-2 px-4 d-flex align-items-center gap-3 gap-md-4">
+            <!-- Logo -->
+            <a href="index.html" class="navbar-brand fw-bold fs-3 text-dark text-decoration-none">Quick<span style="color: var(--clr-soft-purple);">Mart</span></a>
+            
+            <!-- Location (Amazon Style) -->
+            <div class="d-none d-xl-flex align-items-center cursor-pointer hover-scale text-muted">
+                <i class="fas fa-map-marker-alt fs-4 me-2 pb-1" style="color: var(--clr-peach);"></i>
+                <div class="lh-1">
+                    <span class="small d-block text-muted" style="font-size: 0.75rem;">Deliver to</span>
+                    <span class="fw-bold fs-6 text-dark">New York 10001</span>
+                </div>
+            </div>
+
+            <!-- Large Search Bar -->
+            <div class="flex-grow-1 mx-md-3 d-none d-lg-flex">
+                <div class="input-group shadow-sm" style="border-radius: var(--border-radius-sm); border: 1px solid var(--clr-lavender);">
+                    <select class="form-select bg-light border-0 fw-medium text-muted" style="max-width: 130px; border-radius: var(--border-radius-sm) 0 0 var(--border-radius-sm);">
+                        <option>All Depts</option>
+                    </select>
+                    <input type="text" id="globalSearch" class="form-control border-0 ps-3" placeholder="Search premium products (e.g. hoodie, headphones)...">
+                    <button class="btn px-4" id="globalSearchBtn" style="background: var(--clr-soft-purple); border-radius: 0 var(--border-radius-sm) var(--border-radius-sm) 0;">
+                        <i class="fas fa-search text-white"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Account & Lists -->
+            <div id="navAuthContainer" class="nav-right d-flex flex-column">
+                <a href="pages/login.html" class="d-none d-md-flex flex-column cursor-pointer hover-scale text-decoration-none text-dark">
+                    <span class="text-muted" style="font-size: 0.75rem;">Hello, Sign in</span>
+                    <span class="fw-bold fs-6">Account & Lists <i class="fas fa-caret-down small text-muted"></i></span>
+                </a>
+            </div>
+
+            <!-- Returns & Orders -->
+            <a href="pages/orders.html" class="d-none d-lg-flex flex-column cursor-pointer hover-scale text-decoration-none text-dark">
+                <span class="text-muted" style="font-size: 0.75rem;">Returns</span>
+                <span class="fw-bold fs-6">& Orders</span>
+            </a>
+
+            <!-- Cart Icon -->
+            <a href="pages/cart.html" class="d-flex align-items-end cursor-pointer hover-scale text-decoration-none text-dark position-relative ms-auto ms-lg-0">
+                <div class="position-relative">
+                    <i class="fas fa-shopping-cart fa-2x" style="color: var(--clr-sky-blue);"></i>
+                    <span id="cartCountBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill" style="background-color: var(--clr-peach); font-size: 0.7rem; border: 2px solid white;">0</span>
+                </div>
+                <span class="fw-bold ms-2 mb-1 d-none d-sm-inline">Cart</span>
+            </a>
+        </div>
+
+        <!-- Bottom Category Bar -->
+        <div class="container-fluid py-2 px-4 border-top border-light d-flex align-items-center gap-4 text-muted fw-bold overflow-auto" style="background: rgba(255,255,255,0.4); font-size: 0.9rem; white-space: nowrap;">
+            <span class="cursor-pointer hover-scale text-dark"><i class="fas fa-bars me-1"></i> All</span>
+            <a href="pages/products.html?category=Electronics" class="text-decoration-none text-muted hover-scale">Electronics</a>
+            <a href="pages/products.html?category=Fashion" class="text-decoration-none text-muted hover-scale">Fashion</a>
+            <a href="pages/products.html?category=Gaming" class="text-decoration-none text-muted hover-scale">Gaming</a>
+            <a href="pages/products.html?category=Sneakers" class="text-decoration-none text-muted hover-scale">Sneakers</a>
+            <a href="pages/products.html?category=Beauty" class="text-decoration-none text-muted hover-scale">Beauty</a>
+            <a href="pages/products.html?category=Home Decor" class="text-decoration-none text-muted hover-scale">Home Decor</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="page-transition-enter">
+        
+        <!-- Hero Banner Carousel -->
+        <section class="container-fluid p-0 mb-5 position-relative">
+            <div class="bg-light d-flex align-items-center justify-content-center w-100 position-relative" style="height: 400px; background: url('assets/images/hero/hero-main.jpg') center/cover no-repeat;">
+                <div class="position-absolute top-0 start-0 w-100 h-100" style="background: rgba(255,255,255,0.3); backdrop-filter: blur(2px);"></div>
+                <div class="text-center fade-in-up position-relative z-1 p-5 rounded-4 glass-card border-0 shadow-lg">
+                    <h1 class="display-4 fw-bold text-dark mb-3">Spring Pastel Collection</h1>
+                    <p class="lead text-dark mb-4 fw-medium">Discover the new premium soft-touch electronics.</p>
+                    <a href="pages/products.html?category=Electronics" class="btn btn-premium btn-lg">Shop Now</a>
+                </div>
+            </div>
+            <div class="position-absolute bottom-0 w-100" style="height: 150px; background: linear-gradient(to bottom, rgba(248,249,250,0) 0%, rgba(248,249,250,1) 100%); z-index: 5;"></div>
+        </section>
+
+        <div class="container-fluid px-4" style="margin-top: -100px; position: relative; z-index: 10;">
+            
+            <!-- Top Fixed Ad Cards -->
+            <div class="row g-4 mb-5">
+                <div class="col-md-6 col-xl-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="glass-card bg-white p-4 h-100 rounded-4 shadow-sm border-0 d-flex flex-column hover-scale">
+                        <h5 class="fw-bold mb-3">Gaming accessories</h5>
+                        <div class="flex-grow-1 mb-3 rounded shadow-sm" style="background: url('assets/images/categories/gaming.jpg') center/cover; min-height: 220px;"></div>
+                        <a href="pages/products.html?category=Gaming" class="text-decoration-none small fw-bold" style="color: var(--clr-soft-purple);">Shop Gaming</a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="glass-card bg-white p-4 h-100 rounded-4 shadow-sm border-0 d-flex flex-column hover-scale">
+                        <h5 class="fw-bold mb-3">Deals in Fashion</h5>
+                        <div class="flex-grow-1 mb-3 rounded shadow-sm" style="background: url('assets/images/categories/fashion.jpg') center/cover; min-height: 220px;"></div>
+                        <a href="pages/products.html?category=Fashion" class="text-decoration-none small fw-bold" style="color: var(--clr-soft-purple);">Shop Fashion</a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="glass-card bg-white p-4 h-100 rounded-4 shadow-sm border-0 d-flex flex-column hover-scale">
+                        <h5 class="fw-bold mb-3">Refresh your space</h5>
+                        <div class="flex-grow-1 mb-3 rounded shadow-sm" style="background: url('assets/images/categories/home.jpg') center/cover; min-height: 220px;"></div>
+                        <a href="pages/products.html?category=Home Decor" class="text-decoration-none small fw-bold" style="color: var(--clr-soft-purple);">Shop Home Decor</a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-3" data-aos="fade-up" data-aos-delay="400">
+                    <div class="glass-card bg-white p-4 h-100 rounded-4 shadow-sm border-0 text-center d-flex flex-column justify-content-center position-relative overflow-hidden group hover-scale">
+                        <div class="position-absolute top-0 start-0 w-100 h-100" style="background: url('assets/images/banners/electronics-banner.jpg') center/cover; opacity: 0.3; filter: blur(3px);"></div>
+                        <div class="position-relative z-1 p-3 glass-card rounded shadow border-0">
+                            <h4 class="fw-bold mb-3 text-danger"><i class="fas fa-bolt me-2"></i>Flash Sale</h4>
+                            <p class="text-dark fw-bold mb-4">Up to 40% off premium tech gear.</p>
+                            <a href="pages/products.html?category=Electronics" class="btn btn-premium w-100 mb-2 rounded-pill shadow">Explore Deals</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- JS Dynamic Category Sections will be injected here -->
+            <div id="dynamicCategoriesContainer"></div>
+
+        </div>
+    </main>
+
+    <!-- Amazon-Style Footer -->
+    <div class="w-100 text-center py-3 text-white fw-bold cursor-pointer" style="background: var(--clr-soft-purple); transition: opacity 0.2s;" onmouseover="this.style.opacity=0.9" onmouseout="this.style.opacity=1" onclick="window.scrollTo(0,0)">
+        Back to top
+    </div>
+    <footer class="text-white py-5" style="background: #232F3E;">
+        <div class="container text-center">
+            <a class="navbar-brand fw-bold fs-3 text-white text-decoration-none mb-3 d-inline-block" href="index.html">Quick<span style="color: var(--clr-soft-purple);">Mart</span></a>
+            <p class="text-light small">&copy; 2026, QuickMart, Inc. or its affiliates</p>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/session.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/home.js"></script>
+    <script>document.addEventListener("DOMContentLoaded", function() { if(typeof AOS !== 'undefined') AOS.init({ duration: 800, once: true }); });</script>
+</body>
+</html>

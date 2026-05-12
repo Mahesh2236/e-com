@@ -1,0 +1,44 @@
+/* QuickMart Premium Soft Pastel Theme */
+:root {
+  /* Primary Colors */
+  --clr-lavender: #E6E6FA;
+  --clr-soft-purple: #C8B6FF;
+  --clr-dark-purple: #7042A6;
+  --clr-light-pink: #FFD6FF;
+  --clr-white: #FFFFFF;
+
+  /* Secondary Accents */
+  --clr-sky-blue: #A0C4FF;
+  --clr-soft-cyan: #9BF6FF;
+  --clr-peach: #FFADAD;
+
+  /* Neutrals & Text */
+  --clr-text-main: #2B2D42;
+  --clr-text-muted: #8D99AE;
+  --clr-bg-gradient: linear-gradient(135deg, #FDFBFF 0%, #F4F0FF 100%);
+
+  /* Glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.8);
+  --glass-shadow: 0 8px 32px 0 rgba(200, 182, 255, 0.2);
+  --glass-blur: blur(12px);
+
+  /* Shadows */
+  --shadow-soft: 0 4px 20px rgba(200, 182, 255, 0.15);
+  --shadow-float: 0 15px 35px rgba(200, 182, 255, 0.25);
+  --shadow-glow: 0 0 20px rgba(255, 214, 255, 0.6);
+
+  /* Typography */
+  --font-family-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Outfit', system-ui, sans-serif;
+
+  /* Transitions */
+  --transition-smooth: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  
+  /* Border Radius */
+  --border-radius-xl: 32px;
+  --border-radius-lg: 24px;
+  --border-radius-md: 16px;
+  --border-radius-sm: 8px;
+}

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickMart - Login</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/animations.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <!-- Navbar Component -->
+    <nav class="navbar navbar-expand-lg glass-nav fixed-top py-3">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-4" href="../index.html">Quick<span style="color: var(--clr-soft-purple);">Mart</span></a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navContent">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link fw-medium px-3" href="../index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link fw-medium px-3" href="products.html">Shop</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow-1 d-flex align-items-center" style="padding-top: 80px;">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="glass-card overflow-hidden p-0 fade-in-up">
+                        <div class="row g-0">
+                            <!-- Left: Illustration -->
+                            <div class="col-md-6 d-none d-md-flex align-items-center justify-content-center bg-light p-5 position-relative">
+                                <div class="text-center animate-float">
+                                    <div class="bg-white rounded-circle shadow-sm d-flex align-items-center justify-content-center mb-4 mx-auto" style="width:120px; height:120px;">
+                                        <i class="fas fa-fingerprint fa-3x" style="color: var(--clr-soft-purple);"></i>
+                                    </div>
+                                    <h3 class="fw-bold">Welcome Back</h3>
+                                    <p class="text-muted">Access your premium shopping account.</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Right: Form -->
+                            <div class="col-md-6 p-5">
+                                <div class="text-center mb-4">
+                                    <h2 class="fw-bold">Sign In</h2>
+                                    <p class="text-muted">Don't have an account? <a href="register.html" class="text-decoration-none fw-bold" style="color: var(--clr-soft-purple);">Sign up</a></p>
+                                </div>
+                                <form id="loginForm">
+                                    <!-- Email Field -->
+                                    <div class="mb-3">
+                                        <label class="form-label text-muted small fw-bold">Email Address</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-transparent border-end-0 border-light"><i class="fas fa-envelope text-muted"></i></span>
+                                            <input type="email" id="email" class="form-control border-light" placeholder="hello@quickmart.com" required>
+                                            <button class="btn btn-outline-primary" type="button" id="getOtpBtn">Get OTP</button>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- OTP Field (Hidden initially) -->
+                                    <div class="mb-3 d-none" id="otpGroup">
+                                        <label class="form-label text-muted small fw-bold d-flex justify-content-between">
+                                            OTP Verification
+                                            <span class="text-primary fw-normal" id="otpTimer"></span>
+                                        </label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-transparent border-end-0 border-light"><i class="fas fa-key text-muted"></i></span>
+                                            <input type="text" id="otp" class="form-control border-light" placeholder="6-digit code" maxlength="6">
+                                            <button class="btn btn-primary" type="button" id="verifyOtpBtn">Verify</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Password Field -->
+                                    <div class="mb-4">
+                                        <div class="d-flex justify-content-between">
+                                            <label class="form-label text-muted small fw-bold">Password</label>
+                                            <a href="#" class="small text-decoration-none text-muted">Forgot Password?</a>
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-transparent border-end-0 border-light"><i class="fas fa-lock text-muted"></i></span>
+                                            <input type="password" id="password" class="form-control border-start-0 ps-0" placeholder="••••••••" required>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Submit -->
+                                    <div class="d-grid gap-3">
+                                        <button type="submit" class="btn btn-premium btn-lg" id="submitBtn" disabled>Sign In</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/cart.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/session.js"></script>
+    <script>
+        const getOtpBtn = document.getElementById('getOtpBtn');
+        const verifyOtpBtn = document.getElementById('verifyOtpBtn');
+        const otpGroup = document.getElementById('otpGroup');
+        const submitBtn = document.getElementById('submitBtn');
+        const otpTimer = document.getElementById('otpTimer');
+        let timerInterval;
+        let isOtpVerified = false;
+
+        getOtpBtn.addEventListener('click', async () => {
+            const email = document.getElementById('email').value;
+            if (!email) {
+                showToast('Please enter your email first', 'danger');
+                return;
+            }
+
+            try {
+                getOtpBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                getOtpBtn.disabled = true;
+                await apiRequest('/auth/request-otp', 'POST', { email });
+                showToast('OTP sent to your email!', 'success');
+                otpGroup.classList.remove('d-none');
+                startTimer(300);
+                getOtpBtn.innerHTML = 'Sent';
+            } catch (error) {
+                showToast(error.message, 'danger');
+                getOtpBtn.innerHTML = 'Get OTP';
+                getOtpBtn.disabled = false;
+            }
+        });
+
+        verifyOtpBtn.addEventListener('click', async () => {
+            const email = document.getElementById('email').value;
+            const otp = document.getElementById('otp').value;
+            if (!otp) return;
+
+            try {
+                verifyOtpBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                await apiRequest('/auth/verify-otp', 'POST', { email, otp });
+                showToast('OTP verified successfully!', 'success');
+                verifyOtpBtn.innerHTML = '<i class="fas fa-check"></i>';
+                verifyOtpBtn.classList.replace('btn-primary', 'btn-success');
+                verifyOtpBtn.disabled = true;
+                document.getElementById('otp').disabled = true;
+                isOtpVerified = true;
+                submitBtn.disabled = false;
+                clearInterval(timerInterval);
+                otpTimer.textContent = 'Verified ✔';
+            } catch (error) {
+                showToast('Invalid OTP. Please try again.', 'danger');
+                verifyOtpBtn.innerHTML = 'Verify';
+            }
+        });
+
+        function startTimer(duration) {
+            clearInterval(timerInterval);
+            let timer = duration, minutes, seconds;
+            timerInterval = setInterval(() => {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+                otpTimer.textContent = `Expires in ${minutes}:${seconds}`;
+                if (--timer < 0) {
+                    clearInterval(timerInterval);
+                    otpTimer.textContent = "Expired";
+                    getOtpBtn.disabled = false;
+                    getOtpBtn.innerHTML = "Resend";
+                }
+            }, 1000);
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!isOtpVerified) {
+                showToast('Please verify your OTP first', 'danger');
+                return;
+            }
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const otp = document.getElementById('otp').value;
+
+            try {
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Signing In...';
+                submitBtn.disabled = true;
+                const response = await loginUser(email, password, otp);
+                showToast(`Welcome back, ${response.fullName}!`, 'success');
+                const urlParams = new URLSearchParams(window.location.search);
+                const redirect = urlParams.get('redirect') || '../index.html';
+                setTimeout(() => window.location.href = redirect, 1000);
+            } catch (error) {
+                showToast(error.message, 'danger');
+                submitBtn.innerHTML = 'Sign In';
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

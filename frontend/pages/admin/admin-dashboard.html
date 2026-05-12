@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickMart Admin - Dashboard</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/main.css">
+    <style>
+        .admin-sidebar { width: 260px; min-height: 100vh; background: #fff; box-shadow: var(--shadow-soft); z-index: 100; position: fixed; left: 0; top: 0;}
+        .admin-main { margin-left: 260px; min-height: 100vh; background: var(--clr-bg-gradient); }
+        .admin-nav-link { color: var(--clr-text-muted); font-weight: 500; border-radius: var(--border-radius-sm); transition: var(--transition-smooth); }
+        .admin-nav-link:hover, .admin-nav-link.active { background: var(--clr-lavender); color: var(--clr-text-main); }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Layout -->
+    <aside class="admin-sidebar p-4 d-flex flex-column">
+        <a class="navbar-brand fw-bold fs-4 mb-5 text-center" href="../home.html">Quick<span style="color: var(--clr-soft-purple);">Mart</span></a>
+        
+        <nav class="nav flex-column gap-2 mb-auto">
+            <a class="nav-link admin-nav-link active p-3" href="admin-dashboard.html"><i class="fas fa-home me-3"></i> Dashboard</a>
+            <a class="nav-link admin-nav-link p-3" href="#"><i class="fas fa-box me-3"></i> Products</a>
+            <a class="nav-link admin-nav-link p-3" href="#"><i class="fas fa-shopping-cart me-3"></i> Orders</a>
+            <a class="nav-link admin-nav-link p-3" href="#"><i class="fas fa-users me-3"></i> Customers</a>
+            <a class="nav-link admin-nav-link p-3" href="#"><i class="fas fa-chart-line me-3"></i> Analytics</a>
+        </nav>
+        
+        <div class="mt-auto">
+            <hr class="border-light">
+            <a class="nav-link admin-nav-link p-3 text-danger" href="../login.html"><i class="fas fa-sign-out-alt me-3"></i> Logout</a>
+        </div>
+    </aside>
+
+    <!-- Main Workspace Area -->
+    <main class="admin-main">
+        <!-- Topbar -->
+        <header class="bg-white p-4 shadow-sm d-flex justify-content-between align-items-center sticky-top">
+            <h4 class="fw-bold mb-0">Overview</h4>
+            <div class="d-flex align-items-center gap-4">
+                <div class="position-relative">
+                    <i class="fas fa-bell text-muted fs-5 cursor-pointer"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
+                </div>
+                <div class="d-flex align-items-center gap-2 cursor-pointer">
+                    <div class="rounded-circle overflow-hidden shadow-sm border border-2 border-white" style="width: 35px; height: 35px;">
+                        <img src="../../assets/images/users/avatar1.jpg" class="w-100 h-100" style="object-fit: cover;">
+                    </div>
+                    <span class="fw-bold text-muted small">Admin User</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <div class="p-4 p-md-5">
+            
+            <!-- Key Metrics Row -->
+            <div class="row g-4 mb-5 fade-in-up delay-1">
+                <div class="col-md-3">
+                    <div class="glass-card p-4 hover-scale text-center">
+                        <div class="text-muted small fw-bold mb-2">Total Revenue</div>
+                        <h3 class="fw-bold text-gradient mb-0" style="color: var(--clr-soft-purple);">?24,500</h3>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="glass-card p-4 hover-scale text-center">
+                        <div class="text-muted small fw-bold mb-2">Active Orders</div>
+                        <h3 class="fw-bold mb-0">142</h3>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="glass-card p-4 hover-scale text-center">
+                        <div class="text-muted small fw-bold mb-2">New Customers</div>
+                        <h3 class="fw-bold mb-0">89</h3>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="glass-card p-4 hover-scale text-center">
+                        <div class="text-muted small fw-bold mb-2">Inventory Alerts</div>
+                        <h3 class="fw-bold text-danger mb-0">12</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Complex Layout Grid -->
+            <div class="row g-4 fade-in-up delay-2">
+                
+                <!-- Main Chart Area -->
+                <div class="col-lg-8">
+                    <div class="glass-card h-100 p-4">
+                        <h5 class="fw-bold mb-4">Revenue Trend</h5>
+                        <!-- Chart Placeholder -->
+                        <div class="bg-light rounded d-flex align-items-center justify-content-center text-muted" style="height: 300px; border: 2px dashed var(--clr-lavender);">
+                            [Chart.js Line Chart Placeholder]
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Transactions Area -->
+                <div class="col-lg-4">
+                    <div class="glass-card h-100 p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="fw-bold mb-0">Recent Orders</h5>
+                        </div>
+                        
+                        <!-- List Item Structure -->
+                        <div class="d-flex justify-content-between align-items-center border-bottom border-light pb-3 mb-3">
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="rounded-circle overflow-hidden shadow-sm" style="width: 30px; height: 30px;">
+                                    <img src="../../assets/images/users/avatar2.jpg" class="w-100 h-100" style="object-fit: cover;">
+                                </div>
+                                <div>
+                                    <div class="fw-bold small">#ORD-9021</div>
+                                    <div class="text-muted" style="font-size: 0.75rem;">Alice Smith</div>
+                                </div>
+                            </div>
+                            <span class="badge bg-success rounded-pill px-3 py-2 fw-medium">Shipped</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center border-bottom border-light pb-3 mb-3">
+                            <div>
+                                <div class="fw-bold small">#ORD-9022</div>
+                                <div class="text-muted" style="font-size: 0.75rem;">John Doe</div>
+                            </div>
+                            <span class="badge bg-warning text-dark rounded-pill px-3 py-2 fw-medium">Pending</span>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/cart.js"></script>
+</body>
+</html>

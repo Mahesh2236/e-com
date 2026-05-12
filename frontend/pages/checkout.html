@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickMart - Checkout</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/checkout.css">
+    <link rel="stylesheet" href="../css/confetti.css">
+    <link rel="stylesheet" href="../css/animations.css">
+</head>
+<body class="bg-light d-flex flex-column min-vh-100">
+    
+    <!-- Ultra Minimalist Checkout Navbar -->
+    <header class="bg-white py-3 border-bottom border-light shadow-sm sticky-top">
+        <div class="container-fluid px-lg-5 d-flex justify-content-between align-items-center">
+            <a href="home.html" class="navbar-brand fw-bold fs-3 text-dark text-decoration-none">Quick<span style="color: var(--clr-soft-purple);">Mart</span></a>
+            <h3 class="fw-normal mb-0 text-muted d-none d-md-block">Checkout (<span class="text-primary" id="checkoutHeaderCount">0 items</span>)</h3>
+            <div class="d-flex align-items-center gap-2 text-muted">
+                <i class="fas fa-lock"></i>
+                <span class="small fw-bold d-none d-sm-inline">SECURE CHECKOUT</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="page-transition-enter pt-4 mb-5 flex-grow-1">
+        <div class="container-fluid px-lg-5">
+            <div class="row g-4">
+                
+                <!-- Left: Checkout steps -->
+                <div class="col-lg-8">
+                    
+                    <!-- Step 1: Shipping Address -->
+                    <div id="step1" class="glass-card bg-white p-4 rounded-4 shadow-sm mb-4 checkout-step active">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <div class="d-flex align-items-center gap-3">
+                                <div id="step1Num" class="step-number active">1</div>
+                                <h4 class="fw-bold mb-0">Shipping address</h4>
+                            </div>
+                            <button id="editStep1" class="btn btn-link text-primary text-decoration-none small d-none">Change</button>
+                        </div>
+                        
+                        <div id="step1Content">
+                            <div id="addressList" class="row g-3 mb-4">
+                                <!-- JS will populate addresses here -->
+                            </div>
+                            <div class="d-flex flex-wrap gap-3">
+                                <button id="addNewAddressBtn" class="btn btn-outline-primary rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#addressModal">
+                                    <i class="fas fa-plus me-2"></i>Add a new address
+                                </button>
+                                <button id="useAddressBtn" class="btn btn-premium rounded-pill px-4 shadow-sm" disabled>Use this address</button>
+                            </div>
+                        </div>
+                        
+                        <div id="step1Summary" class="ms-5 d-none">
+                            <p class="mb-0 small text-muted" id="selectedAddressText"></p>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Payment Method -->
+                    <div id="step2" class="glass-card bg-white p-4 rounded-4 shadow-sm mb-4 checkout-step opacity-50">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <div class="d-flex align-items-center gap-3">
+                                <div id="step2Num" class="step-number">2</div>
+                                <h4 class="fw-bold mb-0 text-muted" id="step2Title">Payment method</h4>
+                            </div>
+                            <button id="editStep2" class="btn btn-link text-primary text-decoration-none small d-none">Change</button>
+                        </div>
+                        
+                        <div id="step2Content" class="d-none">
+                            <div class="list-group list-group-flush mb-4">
+                                <div class="payment-option list-group-item rounded-3 mb-2 p-3 cursor-pointer d-flex align-items-center gap-3" data-method="upi">
+                                    <input type="radio" name="paymentMethod" value="upi" class="form-check-input">
+                                    <div class="flex-grow-1">
+                                        <div class="fw-bold">UPI Apps</div>
+                                        <div class="small text-muted">Google Pay, PhonePe, Paytm</div>
+                                        
+                                        <!-- UPI Details (Initially Hidden) -->
+                                        <div id="upiDetails" class="mt-3 p-3 bg-light rounded-3 d-none">
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control form-control-sm" placeholder="Enter UPI ID (e.g. user@okaxis)" id="upiId">
+                                                <button class="btn btn-sm btn-primary" type="button" id="verifyUpiBtn">Verify</button>
+                                            </div>
+                                            <div class="text-center">
+                                                <div class="small text-muted mb-2">Or Scan QR Code</div>
+                                                <div class="bg-white p-2 d-inline-block rounded border shadow-sm">
+                                                    <i class="fas fa-qrcode fa-4x text-dark"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <img src="https://img.icons8.com/color/48/upi.png" width="30" class="ms-auto">
+                                </div>
+                                <div class="payment-option list-group-item rounded-3 mb-2 p-3 cursor-pointer d-flex align-items-center gap-3" data-method="card">
+                                    <input type="radio" name="paymentMethod" value="card" class="form-check-input">
+                                    <div class="flex-grow-1">
+                                        <div class="fw-bold">Credit or Debit Card</div>
+                                        <div class="small text-muted">All major cards supported</div>
+                                        
+                                        <!-- Card Details Form (Initially Hidden) -->
+                                        <div id="cardDetails" class="mt-3 p-3 bg-light rounded-3 d-none">
+                                            <div class="mb-3">
+                                                <input type="text" class="form-control form-control-sm" placeholder="Card Number" id="cardNumber">
+                                            </div>
+                                            <div class="row g-2 mb-3">
+                                                <div class="col-7">
+                                                    <input type="text" class="form-control form-control-sm" placeholder="MM / YY" id="cardExpiry">
+                                                </div>
+                                                <div class="col-5">
+                                                    <input type="password" class="form-control form-control-sm" placeholder="CVV" id="cardCvv">
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-sm btn-primary w-100" type="button" id="verifyCardBtn">Securely Verify Card</button>
+                                        </div>
+                                    </div>
+                                    <div class="ms-auto d-flex gap-1">
+                                        <i class="fab fa-cc-visa fs-4 text-primary"></i>
+                                        <i class="fab fa-cc-mastercard fs-4 text-danger"></i>
+                                    </div>
+                                </div>
+                                <div class="payment-option list-group-item rounded-3 mb-2 p-3 cursor-pointer d-flex align-items-center gap-3" data-method="cod">
+                                    <input type="radio" name="paymentMethod" value="cod" class="form-check-input">
+                                    <div class="flex-grow-1">
+                                        <div class="fw-bold">Cash on Delivery (COD)</div>
+                                        <div class="small text-muted">Pay when your order arrives</div>
+                                        <div id="codNotice" class="mt-2 small text-success fw-bold d-none">✔ COD Selected. No verification needed.</div>
+                                    </div>
+                                    <i class="fas fa-money-bill-wave fs-4 text-success ms-auto"></i>
+                                </div>
+                            </div>
+                            
+                            <div id="paymentSuccessAnim" class="alert alert-success d-none fade-in-up py-2 small">
+                                <i class="fas fa-check-circle me-2"></i> Payment verification successful!
+                            </div>
+
+                            <button id="usePaymentBtn" class="btn btn-premium rounded-pill px-4 shadow-sm" disabled>Use this payment method</button>
+                        </div>
+
+                        <div id="step2Summary" class="ms-5 d-none">
+                            <p class="mb-0 small text-muted" id="selectedPaymentText"></p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Review Items -->
+                    <div id="step3" class="glass-card bg-white p-4 rounded-4 shadow-sm mb-4 checkout-step opacity-50">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div id="step3Num" class="step-number">3</div>
+                            <h4 class="fw-bold mb-0 text-muted" id="step3Title">Items and shipping</h4>
+                        </div>
+                        
+                        <div id="step3Content" class="d-none">
+                            <div id="reviewItemsList">
+                                <!-- JS will populate items here -->
+                            </div>
+                        </div>
+
+                        <div id="step3Summary" class="ms-5 d-none">
+                            <p class="mb-0 small text-muted">Review items and shipping</p>
+                        </div>
+                    </div>
+                    </div>
+
+                </div>
+
+                <!-- Right: Summary Box -->
+                <div class="col-lg-4">
+                    <div class="glass-card bg-white p-4 rounded-4 shadow-lg border border-light sticky-top" style="top: 100px; z-index: 10;">
+                        <button id="placeOrderBtn" class="btn btn-premium w-100 rounded-pill py-2 shadow-sm mb-3 fw-bold disabled">Place your order</button>
+                        <p class="text-center x-small text-muted mb-4" style="font-size: 0.7rem;">By placing your order, you agree to QuickMart's conditions of use and privacy notice.</p>
+                        
+                        <h5 class="fw-bold mb-3 border-bottom border-light pb-2">Order Summary</h5>
+                        <div id="checkoutOrderItems" class="mb-3 border-bottom border-light pb-3 d-none d-md-block">
+                            <!-- JS Injected items -->
+                        </div>
+                        
+                        <div class="d-flex justify-content-between mb-1 small">
+                            <span id="checkoutItemsCountLabel">Items (0):</span>
+                            <span id="checkoutSubtotal">₹0</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-1 small">
+                            <span>Delivery:</span>
+                            <span class="text-success fw-bold">FREE</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3 small border-bottom border-light pb-3">
+                            <span>Total before tax:</span>
+                            <span id="checkoutBeforeTax">₹0</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3 small border-bottom border-light pb-3">
+                            <span>Estimated Tax (18%):</span>
+                            <span id="checkoutTax">₹0</span>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between mb-2 small text-success fw-bold d-none" id="discountRow">
+                            <span>Discount Applied:</span>
+                            <span>- ₹<span id="discountAmt">0</span></span>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between mb-4">
+                            <span class="fw-bold fs-5 text-danger">Order Total:</span>
+                            <span class="fw-bold fs-5 text-danger" id="checkoutTotal">₹0</span>
+                        </div>
+
+                        <div class="input-group input-group-sm mb-4">
+                            <input type="text" class="form-control" placeholder="Promo code">
+                            <button class="btn btn-outline-secondary" type="button">Apply</button>
+                        </div>
+
+                        <div class="bg-light p-3 rounded-3 small">
+                            <div class="text-success fw-bold mb-1"><i class="fas fa-shield-alt me-1"></i> A-to-z Guarantee</div>
+                            <div class="text-muted">You're protected with our secure checkout and fast returns.</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Address Modal -->
+    <div class="modal fade" id="addressModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 rounded-4 shadow-lg glass-card">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold">Add a new address</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="addressForm">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="addrName" placeholder="Full name" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="addrPhone" placeholder="Mobile number" required>
+                        </div>
+                        <div class="row g-2 mb-3">
+                            <div class="col-6">
+                                <input type="text" class="form-control" id="addrPincode" placeholder="Pincode" required>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" class="form-control" id="addrCity" placeholder="City/Town" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <textarea class="form-control" id="addrLine" rows="3" placeholder="Flat, House no., Building, Company, Apartment" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="addrState" placeholder="State" required>
+                        </div>
+                        <button type="submit" class="btn btn-premium w-100 rounded-pill py-2 shadow-sm fw-bold">Add address</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 rounded-4 shadow-lg text-center p-5">
+                <div class="checkmark mb-4">
+                    <svg class="checkmark__circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                        <circle cx="26" cy="26" r="25" fill="none"/>
+                    </svg>
+                    <svg class="checkmark__check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                        <path fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                    </svg>
+                </div>
+                <h3 class="fw-bold mb-2">Order Placed Successfully!</h3>
+                <p class="text-muted mb-4">Thank you for shopping with QuickMart. Your order ID is <span id="successOrderId" class="fw-bold text-dark"></span>.</p>
+                <div class="bg-light p-3 rounded-3 mb-4 small text-muted">
+                    Estimated Delivery: <span class="fw-bold text-dark">Tomorrow, by 9 PM</span>
+                </div>
+                <a href="orders.html" class="btn btn-premium rounded-pill px-5 py-2 shadow-sm fw-bold">View My Orders</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/cart.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/session.js"></script>
+    <script src="../js/checkout-page.js"></script>
+</body>
+</html>

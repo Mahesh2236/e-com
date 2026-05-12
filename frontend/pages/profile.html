@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickMart - My Account</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/animations.css">
+</head>
+<body class="bg-light d-flex flex-column min-vh-100">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg glass-nav fixed-top py-3">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-4" href="../index.html">Quick<span style="color: var(--clr-soft-purple);">Mart</span></a>
+            <div class="ms-auto" id="navAuthContainer">
+                <!-- Will be populated by JS -->
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow-1" style="padding-top: 100px;">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <!-- Profile Header Card -->
+                    <div class="glass-card bg-white p-4 p-md-5 rounded-4 shadow-sm border-0 mb-4 fade-in-up">
+                        <div class="d-flex flex-column flex-md-row align-items-center gap-4">
+                            <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center text-white fw-bold shadow-sm" style="width: 100px; height: 100px; font-size: 2.5rem;" id="userInitial">
+                                U
+                            </div>
+                            <div class="text-center text-md-start">
+                                <h2 class="fw-bold mb-1" id="userName">User Name</h2>
+                                <p class="text-muted mb-2" id="userEmail">user@example.com</p>
+                                <span class="badge rounded-pill bg-light text-primary border border-primary px-3 py-2">
+                                    <i class="fas fa-check-circle me-1"></i> QuickPrime Member
+                                </span>
+                            </div>
+                            <div class="ms-md-auto">
+                                <button class="btn btn-outline-danger rounded-pill px-4" onclick="logoutUser()">
+                                    <i class="fas fa-sign-out-alt me-2"></i>Logout
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Details Grid -->
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="glass-card bg-white p-4 rounded-4 shadow-sm border-0 h-100 fade-in-up" style="animation-delay: 0.1s;">
+                                <h6 class="fw-bold mb-3 text-muted small text-uppercase letter-spacing-1">Personal Information</h6>
+                                <div class="mb-3">
+                                    <label class="small text-muted d-block">Full Name</label>
+                                    <span class="fw-bold" id="detailName">Loading...</span>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="small text-muted d-block">Phone Number</label>
+                                    <span class="fw-bold" id="detailPhone">+91 98765 43210</span>
+                                </div>
+                                <button class="btn btn-sm btn-light rounded-pill px-3 text-primary fw-bold">Edit Profile</button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="glass-card bg-white p-4 rounded-4 shadow-sm border-0 h-100 fade-in-up" style="animation-delay: 0.2s;">
+                                <h6 class="fw-bold mb-3 text-muted small text-uppercase letter-spacing-1">Account Activity</h6>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="bg-light rounded-3 p-2 text-primary">
+                                            <i class="fas fa-box"></i>
+                                        </div>
+                                        <span class="fw-medium">Total Orders</span>
+                                    </div>
+                                    <span class="fw-bold badge bg-primary-subtle text-primary rounded-pill px-3">0</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="bg-light rounded-3 p-2 text-danger">
+                                            <i class="fas fa-heart"></i>
+                                        </div>
+                                        <span class="fw-medium">Wishlist Items</span>
+                                    </div>
+                                    <span class="fw-bold badge bg-danger-subtle text-danger rounded-pill px-3">0</span>
+                                </div>
+                                <a href="orders.html" class="btn btn-sm btn-light rounded-pill px-3 text-primary fw-bold w-100 mt-2">View Order History</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Security Card -->
+                    <div class="glass-card bg-white p-4 rounded-4 shadow-sm border-0 mt-4 fade-in-up" style="animation-delay: 0.3s;">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div>
+                                <h6 class="fw-bold mb-1">Password & Security</h6>
+                                <p class="text-muted small mb-0">Manage your account security and authentication.</p>
+                            </div>
+                            <button class="btn btn-outline-primary btn-sm rounded-pill px-3 fw-bold">Change Password</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- JS Files -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (!isLoggedIn()) {
+                window.location.href = 'login.html?redirect=profile.html';
+                return;
+            }
+
+            const user = getCurrentUser();
+            updateNavbarAuth();
+
+            // Populate UI
+            document.getElementById('userName').textContent = user.fullName;
+            document.getElementById('userEmail').textContent = user.email;
+            document.getElementById('userInitial').textContent = user.fullName.charAt(0).toUpperCase();
+            document.getElementById('detailName').textContent = user.fullName;
+            
+            // In a real app, we'd fetch extra profile details from backend here
+            fetchProfileExtra();
+        });
+
+        async function fetchProfileExtra() {
+            try {
+                const details = await apiRequest('/users/me');
+                if (details.phone) {
+                    document.getElementById('detailPhone').textContent = details.phone;
+                }
+                
+                // Update counts in badges
+                const badges = document.querySelectorAll('.badge.rounded-pill.px-3');
+                if (badges.length >= 2) {
+                    badges[0].textContent = details.orderCount || 0;
+                    badges[1].textContent = details.wishlistCount || 0;
+                }
+                
+            } catch (error) {
+                console.warn('Could not fetch extra profile details:', error);
+            }
+        }
+    </script>
+</body>
+</html>
