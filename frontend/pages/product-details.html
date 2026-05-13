@@ -91,11 +91,10 @@
                     
                     <hr class="border-light">
                     <h6 class="fw-bold mb-3" style="color: var(--clr-dark-purple);">About this item</h6>
-                    <ul class="small lh-lg mb-0 ps-3" style="color: var(--clr-dark-purple); font-weight: 500;">
-                        <li>Premium materials ensure long-lasting durability.</li>
-                        <li>Designed with modern aesthetics and ergonomics in mind.</li>
-                        <li>Includes a 1-year limited warranty from the manufacturer.</li>
-                    </ul>
+                    <div id="productDescription" class="small lh-lg mb-0 ps-0" style="color: var(--clr-dark-purple); font-weight: 500;">
+                        <!-- JS Injected Description -->
+                        Loading description...
+                    </div>
                 </div>
 
                 <!-- Right: Sticky Buy Box -->
@@ -151,23 +150,10 @@
     <!-- JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>document.addEventListener("DOMContentLoaded", function() { if(typeof AOS !== 'undefined') AOS.init({ duration: 800, once: true }); });</script>
     <script src="../js/api.js"></script>
     <script src="../js/cart.js"></script>
     <script src="../js/auth.js"></script>
     <script src="../js/session.js"></script>
     <script src="../js/product-details.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            if(typeof AOS !== 'undefined') AOS.init({ duration: 800, once: true });
-            updateNavbarAuth();
-        });
-        
-        // Sync buybox price
-        setTimeout(() => {
-            const el = document.querySelector('#productPrice .display-5');
-            if(el) document.getElementById('buyBoxPrice').textContent = el.textContent;
-        }, 500);
-    </script>
 </body>
 </html>

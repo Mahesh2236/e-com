@@ -1,20 +1,24 @@
-# Node modules
-node_modules/
-dist/
-.env
-
-# Java/Maven
+# Maven
 target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/resources/*.jar
-!**/src/test/resources/*.jar
+*.class
 
 # IDEs
 .idea/
 .vscode/
-*.swp
 *.iml
-.DS_Store
+*.swp
+*.swo
 
-# Logs
+# Local Databases (CRITICAL: Do not push these)
+backend/db/
+*.db
 *.log
+
+# Environment
+.env
+.env.local
+
+# Frontend
+node_modules/
+dist/
+.DS_Store

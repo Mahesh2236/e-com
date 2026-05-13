@@ -3,11 +3,8 @@
 // Detect if we are running locally or on a hosted server
 const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
 
-// REPLACE 'https://quickmart-backend.onrender.com' with your actual Render URL after deploying
-const PROD_URL = 'https://quickmart-backend.onrender.com/api';
-const LOCAL_URL = 'http://127.0.0.1:8081/api';
-
-const API_BASE_URL = isLocal ? LOCAL_URL : PROD_URL;
+const LOCAL_URL = 'http://localhost:8080/api';
+const API_BASE_URL = LOCAL_URL;
 
 /**
  * Reusable fetch wrapper for QuickMart APIs

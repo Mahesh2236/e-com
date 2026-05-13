@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: quickmart-backend
+    runtime: java
+    rootDir: backend
+    buildCommand: "./mvnw clean install -DskipTests"
+    startCommand: "java -jar target/*.jar"
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        sync: false # Set this in Render Dashboard to your PostgreSQL connection string
+      - key: SPRING_DATASOURCE_USERNAME
+        sync: false
+      - key: SPRING_DATASOURCE_PASSWORD
+        sync: false
+      - key: SPRING_JPA_HIBERNATE_DDL_AUTO
+        value: update
+      - key: JWT_SECRET
+        generateValue: true
+      - key: SPRING_MAIL_USERNAME
+        sync: false
+      - key: SPRING_MAIL_PASSWORD
+        sync: false

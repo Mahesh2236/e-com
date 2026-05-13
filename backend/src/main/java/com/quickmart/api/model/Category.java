@@ -1,6 +1,7 @@
 package com.quickmart.api.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Formula;
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,6 +20,9 @@ public class Category {
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
+
+    @Formula("(SELECT COUNT(*) FROM products p WHERE p.category_id = id)")
+    private Integer productCount;
 
     public Category() {}
 
@@ -45,4 +49,6 @@ public class Category {
 
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+
+    public Integer getProductCount() { return productCount; }
 }
