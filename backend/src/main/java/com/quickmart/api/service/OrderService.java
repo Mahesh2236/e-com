@@ -1,6 +1,7 @@
 package com.quickmart.api.service;
 
 import com.quickmart.api.dto.OrderRequest;
+import com.quickmart.api.dto.OrderResponseDTO;
 import com.quickmart.api.model.Order;
 import com.quickmart.api.model.OrderItem;
 import com.quickmart.api.model.User;
@@ -65,12 +66,41 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
-    public List<Order> getUserOrders(User user) {
-        return orderRepository.findByUserIdOrderByCreatedAtDesc(user.getId());
+    public List<OrderResponseDTO> getUserOrders(User user) {
+        List<Order> orders = orderRepository.findByUserIdOrderByCreatedAtDesc(user.getId());
+        return orders.stream().map(this::convertToDTO).toList();
     }
 
-    public Order getOrderDetails(String orderId) {
-        return orderRepository.findByOrderId(orderId)
+    private OrderResponseDTO convertToDTO(Order order) {
+        List<OrderResponseDTO.OrderItemDTO> itemDTOs = order.getOrderItems().stream().map(item -> 
+            new OrderResponseDTO.OrderItemDTO(
+                item.getProduct().getTitle(),
+                item.getProduct().getImageUrl(),
+                item.getQuantity(),
+                item.getPrice(),
+                item.getProduct().getId()
+            )
+        ).toList();
+
+        return new OrderResponseDTO(
+                order.getOrderId(),
+                order.getTotalAmount(),
+                order.getGstAmount(),
+                order.getDeliveryFee(),
+                order.getDiscountAmount(),
+                order.getPaymentMethod(),
+                order.getPaymentStatus(),
+                order.getOrderStatus(),
+                order.getShippingAddress(),
+                order.getEstimatedDelivery(),
+                order.getCreatedAt(),
+                itemDTOs
+        );
+    }
+
+    public OrderResponseDTO getOrderDetails(String orderId) {
+        Order order = orderRepository.findByOrderId(orderId)
                 .orElseThrow(() -> new RuntimeException("Order not found"));
+        return convertToDTO(order);
     }
 }

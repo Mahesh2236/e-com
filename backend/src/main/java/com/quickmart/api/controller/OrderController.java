@@ -1,6 +1,7 @@
 package com.quickmart.api.controller;
 
 import com.quickmart.api.dto.OrderRequest;
+import com.quickmart.api.dto.OrderResponseDTO;
 import com.quickmart.api.model.Order;
 import com.quickmart.api.model.User;
 import com.quickmart.api.service.OrderService;
@@ -27,12 +28,12 @@ public class OrderController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<List<Order>> getMyOrders(@AuthenticationPrincipal User user) {
+    public ResponseEntity<List<OrderResponseDTO>> getMyOrders(@AuthenticationPrincipal User user) {
         return ResponseEntity.ok(orderService.getUserOrders(user));
     }
 
     @GetMapping("/{orderId}")
-    public ResponseEntity<Order> getOrderDetails(@PathVariable String orderId) {
+    public ResponseEntity<OrderResponseDTO> getOrderDetails(@PathVariable String orderId) {
         return ResponseEntity.ok(orderService.getOrderDetails(orderId));
     }
 }

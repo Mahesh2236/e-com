@@ -39,14 +39,13 @@ function renderOrdersList(orders) {
     orders.forEach((order) => {
         let itemsHtml = '';
         order.orderItems.forEach(item => {
-            const product = item.product || {};
             itemsHtml += `
                 <div class="d-flex gap-3 mb-3">
-                    <img src="${product.imageUrl || '../assets/images/placeholder.jpg'}" class="rounded-3 border" style="width: 70px; height: 70px; object-fit: cover;">
+                    <img src="${item.productImageUrl || '../assets/images/placeholder.jpg'}" class="rounded-3 border" style="width: 70px; height: 70px; object-fit: cover;">
                     <div>
-                        <h6 class="fw-bold mb-1">${product.title || 'Product Unavailable'}</h6>
+                        <h6 class="fw-bold mb-1">${item.productTitle || 'Product Unavailable'}</h6>
                         <div class="small text-muted">Qty: ${item.quantity} | Price: ₹${item.price.toLocaleString('en-IN')}</div>
-                        <a href="product-details.html?id=${product.id}" class="btn btn-sm btn-outline-secondary rounded-pill px-3 mt-2">Buy it again</a>
+                        <a href="product-details.html?id=${item.productId}" class="btn btn-sm btn-outline-secondary rounded-pill px-3 mt-2">Buy it again</a>
                     </div>
                 </div>
             `;
